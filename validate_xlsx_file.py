@@ -1,4 +1,5 @@
 import openpyxl
+import re
 
 # Open the Excel file
 workbook = openpyxl.load_workbook('file.xlsx')
@@ -6,8 +7,8 @@ workbook = openpyxl.load_workbook('file.xlsx')
 # Select the first worksheet
 sheet = workbook.active
 
-# Store the values of the second column in a list
-column2 = [cell.value for cell in sheet['B']]
+# Store the values of the second column in a list, cleaned of whitespace and special characters
+column2 = [re.sub(r'\W+', '', str(cell.value).strip()) for cell in sheet['B']]
 
 duplicates = {}
 
